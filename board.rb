@@ -1,4 +1,5 @@
 require_relative 'pieces'
+require_relative 'unicode'
 
 class Board
 
@@ -129,9 +130,9 @@ class Board
   
   def dup
     duped_board = self.new(false)
-    self.each_with_index do |row, idx|
-      row.each_with_index do |element|
-        duped_board
+    self.each_with_index do |row, idx_row|
+      row.each_with_index do |element, idx_el|
+        duped_board[idx_row][idx_el] = element.class.new(self.position.dup, self, self.color)
       end
     end
     duped_board
@@ -145,3 +146,4 @@ class Board
   end
 
 end
+

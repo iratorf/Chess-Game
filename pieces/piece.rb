@@ -1,4 +1,5 @@
 class Piece
+  include PrintPieces
   attr_reader :position, :board, :color
   
   def initialize(position, board, color)
@@ -15,3 +16,4 @@ class Piece
   end
   
 end
+

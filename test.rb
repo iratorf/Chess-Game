@@ -14,14 +14,29 @@ b = Board.new
 
 
 b.render_board
+puts
+# pawn
+b.move([1,5],[2,5]) # pawn 1
+b.render_board
+puts
 
-a = b.dup
-p a
+b.move([6,4],[5,4]) # pawn 1
+b.render_board
+puts
 
-# puts"white pawn"
-# p b.board[1][5].color
-#
-# puts "black pawn"
-# p b.board[6][5].color
-#
-#
+b.move([1,6],[3,6]) # pawn 1
+b.render_board
+puts
+
+b.move([7,3],[3,7]) # pawn 1
+b.render_board
+puts
+
+
+p b.checkmate?(:w)
+
+
+
+
+
+

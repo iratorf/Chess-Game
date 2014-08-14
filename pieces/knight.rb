@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 require_relative 'piece'
 require_relative 'stepable'
 
@@ -19,6 +18,3 @@ class Knight < Piece
       ]
   end 
 end
-
-# horse = Knight.new([2,2], nil, nil)
-# p horse.moves

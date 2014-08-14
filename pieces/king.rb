@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 class King < Piece
   include Stepable
   
@@ -8,6 +6,3 @@ class King < Piece
   end
   
 end
-
-# horse = King.new([2,2], nil, nil)
-# p horse.moves

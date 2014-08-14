@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 require_relative 'piece'
 require_relative 'slideable'
 
@@ -10,6 +9,3 @@ class Queen < Piece
   end
   
 end
-
-# castle = Queen.new([2,3], nil, nil)
-# p castle.moves

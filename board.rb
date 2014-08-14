@@ -4,22 +4,18 @@ require 'colorize'
 
 class Board
   include PrintPieces
-
   attr_accessor :board
+  
   def initialize(fill_board = true)
     @board = Array.new(8) { Array.new(8) }
-    if fill_board
-      generate_board
-    end
+    generate_board if fill_board
   end
-  
-
   
   def place_piece(piece, pos, color = nil)
     if piece.nil?
       self.board[pos[0]][pos[1]] = nil
     else
-      self.board[pos[0]][pos[1]] = piece.new(pos, self, color)  
+      self.board[pos[0]][pos[1]] = piece.new(pos, self, color)
     end
   end
   
@@ -42,12 +38,12 @@ class Board
   end
 
   def [](position)
-    x, y = position[0], position[1]
+    x, y = position
     @board[x][y]
   end
 
   def []=(position, piece)
-    x, y = position[0], position[1]
+    x, y = position
     @board[x][y] = piece
   end
 
@@ -55,11 +51,9 @@ class Board
     type = @board[start[0]][start[1]].class
     color = @board[start[0]][start[1]].color 
     legal = @board[start[0]][start[1]].legal_moves
-    if legal.include?(end_pos)
-      move!(start, end_pos)
-    else
-      raise StandardError.new
-    end
+    raise StandardError.new unless legal.include?(end_pos)
+    
+    move!(start, end_pos)
   end
  
   def move!(start_pos, end_pos)
@@ -68,7 +62,8 @@ class Board
 
   def colors_valid_moves(color)
     valid_moves = []
-    color == :b ? other_color = :w : other_color = :b
+    # extract into opponent_of(color)
+    other_color = (color == :b) ? :w : :b
     pieces_by_color(other_color).each do |piece|
       valid_moves.concat(piece.moves) unless piece.moves.empty?
     end
@@ -88,8 +83,6 @@ class Board
     colors_valid_moves(color).include?(king_location)
   end
   
-  # assign our boards elements to the empty duped board
-  
   def dup_board
     duped_board = self.class.new(false)
     self.board.each_with_index do |row, idx_row|
@@ -102,10 +95,7 @@ class Board
   end
   
   def checkmate?(color)
-    if in_check?(color) && self.legal_array(color).empty?
-      return true
-    end
-    false
+    in_check?(color) && self.legal_array(color).empty?
   end
 
   def occupied?(space)
@@ -123,46 +113,17 @@ class Board
   end   
   
   def generate_board
-    #refactor
-    [0,7].each do |i|
-      i == 0 ? color = :w : color = :b
-      [0,7].each do |j|
-       self.place_piece(Rook, [i, j], color)
+    pieces = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook]
+    pawn_row = 1
+    [:w, :b].each_with_index do |color, row|
+      row == 0 ? row = 0 : row = 7
+      8.times do |column|
+        self.place_piece(Pawn, [pawn_row, column], color)
       end
-    end
-
-    [0,7].each do |i|
-      i == 0 ? color = :w : color = :b
-      [1,6].each do |j|
-        self.place_piece(Knight, [i, j], color)
+      pieces.each_with_index do |piece, column|
+        self.place_piece(piece, [row, column], color)
       end
+      pawn_row = 6
     end
-  
-    [0,7].each do |i|
-      i == 0 ? color = :w : color = :b
-      [2,5].each do |j|
-       self.place_piece(Bishop, [i, j], color)
-      end
-    end
-  
-    [0,7].each do |i|
-      i == 0 ? color = :w : color = :b
-      self.place_piece(King, [i, 4], color)
-    end
-  
-    [0,7].each do |i|
-      i == 0 ? color = :w : color = :b 
-      self.place_piece(Queen, [i, 3], color)
-    end
-    
-    [1, 6].each do |i|
-      (0..7).each do |j|
-        i == 1 ? color = :w : color = :b
-        self.place_piece(Pawn, [i, j], color)
-      end
-    end
-
-  end
-
+  end    
 end
-

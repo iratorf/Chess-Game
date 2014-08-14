@@ -9,9 +9,7 @@ class Piece
   end
   
   def legal_moves
-   
     valid_moves = self.moves
-
     legal = []
     valid_moves.each do |pos_move|
       duped_board = @board.dup_board
@@ -27,12 +25,7 @@ class Piece
     pos = @position
     @position = end_pos
     @board[pos] = nil 
-    @board[@position] = self
- 
-    # set self pos
-    # set board's pos to nil at old pos
-    # (if implementing capturing) capture_other_piece
-    
+    @board[@position] = self  
   end
 end
 

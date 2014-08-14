@@ -16,13 +16,6 @@ class HumanPlayer
     from  = convert_input(input[0].split(""))
     to    = convert_input(input[1].split(""))
     
-  
-    # begin
-    #   board.move(from, to)
-    # rescue ArgumentError
-    #   puts "Please enter a starting argument"
-    #   retry
-    # end
     board.move(from, to)
   end
   

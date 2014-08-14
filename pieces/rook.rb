@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 class Rook < Piece
   include Slideable
   
@@ -8,6 +6,3 @@ class Rook < Piece
   end
   
 end
-
-# castle = Rook.new([2,3], nil, nil)
-# p castle.moves

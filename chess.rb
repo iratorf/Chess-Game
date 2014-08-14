@@ -1,6 +1,9 @@
-
-
+require_relative 'chess'
+require_relative 'board'
+require_relative 'unicode'
+require_relative 'game'
 
 if __FILE__ == $PROGRAM_NAME
-  # play chess!
+  game = Game.new
+  game.play
 end
